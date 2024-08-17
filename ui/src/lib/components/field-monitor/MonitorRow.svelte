@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { AllianceType, DSStationStatus } from '../../../fms/fms-api';
 	import type { FieldMonitorData } from '../../../fms/fms-signalr';
-	
+
 	interface MonitorRowProps {
 		monitorFrame: FieldMonitorData;
 		detailView: () => void;
@@ -9,20 +9,28 @@
 
 	let { monitorFrame, detailView = () => {} }: MonitorRowProps = $props();
 
-	type DriverStationStatus = 'Bypassed' | 'EStopped' | 'StationEstopPressed' | 'MoveStation' | 'WrongMatch' | 'EthActiveNoDs' | 'Good' | 'NoConnection'
+	type DriverStationStatus =
+		| 'Bypassed'
+		| 'EStopped'
+		| 'StationEstopPressed'
+		| 'MoveStation'
+		| 'WrongMatch'
+		| 'EthActiveNoDs'
+		| 'Good'
+		| 'NoConnection';
 
 	const DS_COLORS: Record<DriverStationStatus, string> = {
-		'NoConnection': 'bg-red-600',
-		'Good': 'bg-green-500 rounded-full',
-		'EthActiveNoDs': 'bg-green-500 rounded-full',
-		'WrongMatch': 'bg-yellow-400 rounded-full',
-		'MoveStation': 'bg-yellow-400 rounded-full',
-		'Bypassed': 'bg-red-700',
-		'EStopped': 'bg-neutral-900',
-		'StationEstopPressed': 'bg-neutral-900'
+		NoConnection: 'bg-red-600',
+		Good: 'bg-green-500 rounded-full',
+		EthActiveNoDs: 'bg-green-500 rounded-full',
+		WrongMatch: 'bg-yellow-400 rounded-full',
+		MoveStation: 'bg-yellow-400 rounded-full',
+		Bypassed: 'bg-red-700',
+		EStopped: 'bg-neutral-900',
+		StationEstopPressed: 'bg-neutral-900'
 	};
 
-	function dsStatus() : DriverStationStatus {
+	function dsStatus(): DriverStationStatus {
 		if (monitorFrame.isBypassed) return 'Bypassed';
 		if (monitorFrame.isEStopped) return 'EStopped';
 		if (monitorFrame.isEStopPressed) return 'StationEstopPressed';
@@ -36,10 +44,9 @@
 	}
 
 	const STATUS_COLORS: Record<'bad' | 'good', string> = {
-		'bad': 'bg-red-600',
-		'good': 'bg-green-500 rounded-full'
+		bad: 'bg-red-600',
+		good: 'bg-green-500 rounded-full'
 	};
-
 
 	function batteryGraphColor() {
 		if (!monitorFrame.battery) return '';
