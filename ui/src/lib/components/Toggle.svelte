@@ -2,32 +2,32 @@
 	interface ToggleProps {
 		checked: boolean;
 		children?: any;
-        onchange?: (checked: boolean) => void;
+		onchange?: (checked: boolean) => void;
 	}
 
-	let { 
-        checked = $bindable(false),
-        children,
-        onchange = () => {},
-        ...restProps
-    }: ToggleProps = $props();
+	let {
+		checked = $bindable(false),
+		children,
+		onchange = () => {},
+		...restProps
+	}: ToggleProps = $props();
 
-    function change() {
-        checked = !checked;
-        void onchange(checked);
-    }
+	function change() {
+		checked = !checked;
+		void onchange(checked);
+	}
 </script>
 
 <div class="flex items-center">
 	<button
-        {...restProps}
+		{...restProps}
 		type="button"
 		class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 {checked
 			? 'bg-primary-600'
 			: 'bg-gray-200 dark:bg-neutral-600'}"
 		role="switch"
 		aria-checked={checked}
-        onclick={change}
+		onclick={change}
 	>
 		<span class="sr-only">Use setting</span>
 		<span
