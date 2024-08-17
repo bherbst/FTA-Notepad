@@ -2,6 +2,7 @@
 	import { AllianceType, StationType, MonitorStatusType, DSStationStatus } from "../fms/fms-api";
 	import type { FieldMonitorData } from "../fms/fms-signalr";
     import MonitorRow from "../lib/components/field-monitor/MonitorRow.svelte";
+	import { Blue1Default, Blue2Default, Blue3Default, Red1Default, Red2Default, Red3Default } from "./defaults";
 
     let teams: FieldMonitorData[] = [
         {
@@ -147,10 +148,10 @@
         <div class="flex-1 bg-green-600 px-2 text-center">Ready to Pre-Start</div>
         <div class="bg-neutral-700 px-2">On Time</div>
     </div>
-    <MonitorRow monitorFrame={teams[0]} station="blue1" detailView={detailView} />
-    <MonitorRow monitorFrame={teams[1]} station="blue2" detailView={detailView} />
-    <MonitorRow monitorFrame={teams[2]} station="blue3" detailView={detailView} />
-    <MonitorRow monitorFrame={teams[3]} station="red1" detailView={detailView} />
-    <MonitorRow monitorFrame={teams[4]} station="red2" detailView={detailView} />
-    <MonitorRow monitorFrame={teams[5]} station="red3" detailView={detailView} />
+    <MonitorRow monitorFrame={teams[0] ?? Blue1Default} station="blue1" detailView={detailView} />
+    <MonitorRow monitorFrame={teams[1] ?? Blue2Default} station="blue2" detailView={detailView} />
+    <MonitorRow monitorFrame={teams[2] ?? Blue3Default} station="blue3" detailView={detailView} />
+    <MonitorRow monitorFrame={teams[3] ?? Red1Default} station="red1" detailView={detailView} />
+    <MonitorRow monitorFrame={teams[4] ?? Red2Default} station="red2" detailView={detailView} />
+    <MonitorRow monitorFrame={teams[5] ?? Red3Default} station="red3" detailView={detailView} />
 </div>
