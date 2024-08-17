@@ -2,7 +2,7 @@
 	import { curveBasis, line, scaleLinear } from 'd3';
 
 	// props
-	export let data: { time: number; data: number }[];
+	export let data: { time: number; data: number }[] = [];
 
 	export let min = 6;
 	export let max = 14;
@@ -14,7 +14,7 @@
 	const yScale = scaleLinear().domain([min, max]).range([5, 75]);
 
 	// the path generator
-	const pathLine = line()
+	const pathLine = line<{ time: number; data: number }>()
 		.x((d) => xScale(d.time))
 		.y((d) => yScale(14 - d.data))
 		.curve(curveBasis);
