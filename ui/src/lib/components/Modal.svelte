@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { Icon, XMark, type IconSource } from "svelte-hero-icons";
+	import { Icon } from "@steeze-ui/svelte-icon";
+    import { XMark, type IconSource } from "@steeze-ui/heroicons";
     import { twMerge } from "tailwind-merge";
     
     interface ModalProps {

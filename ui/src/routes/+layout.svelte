@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount, type Snippet } from 'svelte';
 	import '../app.css';
-    import { XMark, Bars3, Clipboard, Cog6Tooth, Tv, DocumentText, ChatBubbleBottomCenterText, ArchiveBox, Icon, InformationCircle, AcademicCap } from 'svelte-hero-icons';
+	import { Icon } from '@steeze-ui/svelte-icon'
+    import { XMark, Bars3, Clipboard, Cog6Tooth, Tv, DocumentText, ChatBubbleBottomCenterText, ArchiveBox, InformationCircle, AcademicCap } from '@steeze-ui/heroicons';
 	import SettingsModal from '../lib/components/dialogs/SettingsModal.svelte';
     import { browser } from '$app/environment';
 	import { settingsStore } from '$lib/settings-store';
