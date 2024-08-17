@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { AllianceType, DSStationStatus, StationType } from '../../../fms/fms-api';
+	import { AllianceType, DSStationStatus } from '../../../fms/fms-api';
 	import type { FieldMonitorData } from '../../../fms/fms-signalr';
-	import Graph from './Graph.svelte';
-
+	
 	interface MonitorRowProps {
 		monitorFrame: FieldMonitorData;
 		detailView: () => void;
@@ -42,9 +40,6 @@
 		'good': 'bg-green-500 rounded-full'
 	};
 
-	function stationKey() {
-		return (monitorFrame.alliance ? 'red' : 'blue') + monitorFrame.station;
-	}
 
 	function batteryGraphColor() {
 		if (!monitorFrame.battery) return '';
