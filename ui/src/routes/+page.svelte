@@ -157,10 +157,10 @@
 		<div class="flex-1 bg-green-600 px-2 text-center">Ready to Pre-Start</div>
 		<div class="bg-neutral-700 px-2">On Time</div>
 	</div>
-	<MonitorRow monitorFrame={teams[0] ?? Blue1Default} station="{StationType.Station1}" alliance={AllianceType.Blue} {detailView} />
-	<MonitorRow monitorFrame={teams[1] ?? Blue2Default} station="{StationType.Station2}" alliance={AllianceType.Blue} {detailView} />
-	<MonitorRow monitorFrame={teams[2] ?? Blue3Default} station="{StationType.Station3}" alliance={AllianceType.Blue} {detailView} />
-	<MonitorRow monitorFrame={teams[3] ?? Red1Default} station="{StationType.Station1}" alliance={AllianceType.Red} {detailView} />
-	<MonitorRow monitorFrame={teams[4] ?? Red2Default} station="{StationType.Station2}" alliance={AllianceType.Red} {detailView} />
-	<MonitorRow monitorFrame={teams[5] ?? Red3Default} station="{StationType.Station3}" alliance={AllianceType.Red} {detailView} />
+	<MonitorRow monitorFrame={teams[0] ?? Blue1Default} {detailView} />
+	<MonitorRow monitorFrame={teams[1] ?? Blue2Default} {detailView} />
+	<MonitorRow monitorFrame={teams[2] ?? Blue3Default} {detailView} />
+	<MonitorRow monitorFrame={teams[3] ?? Red1Default} {detailView} />
+	<MonitorRow monitorFrame={teams[4] ?? Red2Default} {detailView} />
+	<MonitorRow monitorFrame={teams[5] ?? Red3Default} {detailView} />
 </div>

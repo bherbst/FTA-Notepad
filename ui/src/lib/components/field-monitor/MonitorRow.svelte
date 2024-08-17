@@ -6,40 +6,40 @@
 
 	interface MonitorRowProps {
 		monitorFrame: FieldMonitorData;
-		station: StationType;
-		alliance: AllianceType;
 		detailView: () => void;
 	}
 
 	let { monitorFrame, detailView = () => {} }: MonitorRowProps = $props();
 
-	const DS_COLORS: { [key: number]: string } = {
-		0: 'bg-red-600',
-		1: 'bg-green-500 rounded-full',
-		2: 'bg-green-500 rounded-full',
-		3: 'bg-yellow-400 rounded-full',
-		4: 'bg-yellow-400 rounded-full',
-		5: 'bg-red-700',
-		6: 'bg-neutral-900',
-		7: 'bg-neutral-900'
+	type DriverStationStatus = 'Bypassed' | 'EStopped' | 'StationEstopPressed' | 'MoveStation' | 'WrongMatch' | 'EthActiveNoDs' | 'Good' | 'NoConnection'
+
+	const DS_COLORS: Record<DriverStationStatus, string> = {
+		'NoConnection': 'bg-red-600',
+		'Good': 'bg-green-500 rounded-full',
+		'EthActiveNoDs': 'bg-green-500 rounded-full',
+		'WrongMatch': 'bg-yellow-400 rounded-full',
+		'MoveStation': 'bg-yellow-400 rounded-full',
+		'Bypassed': 'bg-red-700',
+		'EStopped': 'bg-neutral-900',
+		'StationEstopPressed': 'bg-neutral-900'
 	};
 
-	function dsStatus() {
-		if (monitorFrame.isBypassed) return 5;
-		if (monitorFrame.isEStopped) return 6;
-		if (monitorFrame.isEStopPressed) return 7;
+	function dsStatus() : DriverStationStatus {
+		if (monitorFrame.isBypassed) return 'Bypassed';
+		if (monitorFrame.isEStopped) return 'EStopped';
+		if (monitorFrame.isEStopPressed) return 'StationEstopPressed';
 		if (monitorFrame.connection) {
-			if (monitorFrame.dsLinkActive) return 1;
-			if (monitorFrame.stationStatus === DSStationStatus.MoveStation) return 3;
-			if (monitorFrame.stationStatus === DSStationStatus.Waiting) return 4;
-			return 2;
+			if (monitorFrame.dsLinkActive) return 'Good';
+			if (monitorFrame.stationStatus === DSStationStatus.MoveStation) return 'MoveStation';
+			if (monitorFrame.stationStatus === DSStationStatus.Waiting) return 'WrongMatch';
+			return 'EthActiveNoDs';
 		}
-		return 0;
+		return 'NoConnection';
 	}
 
-	const STATUS_COLORS: { [key: number]: string } = {
-		0: 'bg-red-600',
-		1: 'bg-green-500 rounded-full'
+	const STATUS_COLORS: Record<'bad' | 'good', string> = {
+		'bad': 'bg-red-600',
+		'good': 'bg-green-500 rounded-full'
 	};
 
 	function stationKey() {
@@ -71,29 +71,29 @@
 	]} text-black"
 	onclick={() => detailView}
 >
-	{#if dsStatus() === 2}
+	{#if dsStatus() === 'EthActiveNoDs'}
 		X
-	{:else if dsStatus() === 3}
+	{:else if dsStatus() === 'MoveStation'}
 		M
-	{:else if dsStatus() === 4}
+	{:else if dsStatus() === 'WrongMatch'}
 		W
-	{:else if dsStatus() === 5}
+	{:else if dsStatus() === 'Bypassed'}
 		B
-	{:else if dsStatus() === 6}
+	{:else if dsStatus() === 'EStopped'}
 		E
-	{:else if dsStatus() === 7}
+	{:else if dsStatus() === 'StationEstopPressed'}
 		A
 	{/if}
 </button>
 <button
 	class="fieldmonitor-square-height md:aspect-square flex {STATUS_COLORS[
-		monitorFrame.radioLink ? 1 : 0
+		monitorFrame.radioLink ? 'good' : 'bad'
 	]}"
 	onclick={() => detailView}
 ></button>
 <button
 	class="fieldmonitor-square-height md:aspect-square flex items-center justify-center font-mono text-4xl lg:text-8xl text-black {STATUS_COLORS[
-		monitorFrame.radioLink ? 1 : 0
+		monitorFrame.radioLink ? 'good' : 'bad'
 	]}"
 	onclick={() => detailView}
 >
@@ -127,7 +127,7 @@
 		<!-- <Graph data={signalData} min={-140} max={100} time={20} /> -->
 	</div>
 	<div class="absolute w-full bottom-0 p-2 monitor-signal">
-		{monitorFrame.signal ? monitorFrame.signal : 0} dBm
+		{monitorFrame.signal ?? 0} dBm
 	</div>
 </button>
 <button
