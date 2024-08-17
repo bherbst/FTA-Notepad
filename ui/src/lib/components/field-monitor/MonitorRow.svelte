@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { AllianceType, DSStationStatus } from '../../../fms/fms-api';
+	import { AllianceType, DSStationStatus, StationType } from '../../../fms/fms-api';
 	import type { FieldMonitorData } from '../../../fms/fms-signalr';
 	import Graph from './Graph.svelte';
 
 	interface MonitorRowProps {
 		monitorFrame: FieldMonitorData;
+		station: StationType;
+		alliance: AllianceType;
 		detailView: () => void;
 	}
 
