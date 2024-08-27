@@ -2,3 +2,6 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Generated OpenAPI file
+src/fms/fms-api.ts
