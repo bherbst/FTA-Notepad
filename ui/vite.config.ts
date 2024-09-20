@@ -6,6 +6,9 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	},
+	server: {
+		port: parseInt(process.env.PORT),
+	},
 	ssr: {
 		noExternal: ['svelte-hero-icons']
 	}

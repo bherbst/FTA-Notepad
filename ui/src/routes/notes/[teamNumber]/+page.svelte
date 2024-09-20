@@ -1,42 +1,16 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import { page } from '$app/stores';
 	import TeamMatchNote from '$lib/components/notes/TeamMatchNote.svelte';
-	import type { components } from '../../../fms/fms-api';
-
-	type MatchNoteModel = components['schemas']['MatchNoteModel'];
+	import { getTeamNotes, type TeamIssue } from "$lib/api-client/fms-client";
 
 	const params = $page.params;
-
-	const notes: MatchNoteModel[] = [
-		{
-			note: 'Hungry for carpet',
-			noteId: '1',
-			tournamentLevel: 'Practice',
-			matchNumber: 1,
-			playNumber: 1,
-			teamNumber: parseInt(params.teamNumber!),
-			timeAdded: 'Wed Aug 7 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
-			timeUpdated: 'Wed Aug 7 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
-			isDeleted: false,
-			whoAdded: '', // TODO will this be a usable format?
-			whoUpdated: '', // TODO will this be a usable format?
-			recordVersion: 1
-		},
-		{
-			note: 'Fire! 🔥',
-			noteId: '1',
-			tournamentLevel: 'Qualification',
-			matchNumber: 23,
-			playNumber: 8,
-			teamNumber: parseInt(params.teamNumber!),
-			timeAdded: 'Wed Aug 7 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
-			timeUpdated: 'Wed Aug 7 2024 00:00:00 GMT+0000 (Coordinated Universal Time)',
-			isDeleted: false,
-			whoAdded: '', // TODO will this be a usable format?
-			whoUpdated: '', // TODO will this be a usable format?
-			recordVersion: 1
-		}
-	];
+	
+	let notes: Awaited<ReturnType<typeof getTeamNotes>> | undefined;
+	
+	onMount(() => {
+		getTeamNotes(parseInt(params.teamNumber ?? "0")).then((res) => (notes = res));
+	});
 </script>
 
 <div>
@@ -44,7 +18,14 @@
 </div>
 
 <ul role="list" class="divide-y divide-gray-100">
-	{#each notes as note}
-		<TeamMatchNote {note} />
-	{/each}
+	{#if notes}
+		{#if notes.error}
+			<p>Error loading team notes</p>
+		{:else}
+			<pre><code>{JSON.stringify(notes.data, undefined, 2)}</code></pre>
+			<!-- {#each notes.data as note}
+				<TeamMatchNote {note} />
+			{/each} -->
+		{/if}
+	{/if}
 </ul>
